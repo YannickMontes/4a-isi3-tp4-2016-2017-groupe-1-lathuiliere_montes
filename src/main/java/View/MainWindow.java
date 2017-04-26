@@ -1,5 +1,6 @@
 package View;
 
+import Controller.GlobalController;
 import Model.Turtle;
 import sun.applet.Main;
 
@@ -18,6 +19,7 @@ public class MainWindow extends JFrame implements ActionListener
     private DrawingSheet feuille;
     private Turtle courante;
     private JTextField inputValue;
+    private GlobalController controller;
 
 
     /**
@@ -39,9 +41,8 @@ public class MainWindow extends JFrame implements ActionListener
     }
 
     public MainWindow() {
-        super("un logo tout simple");
-        logoInit();
-
+        super("TORTUGA");
+        initWindow();
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent arg0) {
@@ -51,48 +52,34 @@ public class MainWindow extends JFrame implements ActionListener
         });
     }
 
-    public void logoInit() {
+    public void initWindow()
+    {
         getContentPane().setLayout(new BorderLayout(10,10));
 
-        // Boutons
-        JToolBar toolBar = new JToolBar();
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(toolBar);
+        initButtons();
 
-        getContentPane().add(buttonPanel,"North");
+        initMenu();
 
-        addButton(toolBar,"Effacer","Nouveau dessin","/icons/index.png");
+        feuille = new DrawingSheet();
 
-        toolBar.add(Box.createRigidArea(HGAP));
-        inputValue=new JTextField("45",5);
-        toolBar.add(inputValue);
-        addButton(toolBar, "Avancer", "Avancer 50", null);
-        addButton(toolBar, "Droite", "Droite 45", null);
-        addButton(toolBar, "Gauche", "Gauche 45", null);
-        addButton(toolBar, "Lever", "Lever Crayon", null);
-        addButton(toolBar, "Baisser", "Baisser Crayon", null);
+        getContentPane().add(feuille,"Center");
 
-        String[] colorStrings = {"noir", "bleu", "cyan","gris fonce","rouge",
-                "vert", "gris clair", "magenta", "orange",
-                "gris", "rose", "jaune"};
+        Turtle turtle = new Turtle();
 
-        // Create the combo box
-        toolBar.add(Box.createRigidArea(HGAP));
-        JLabel colorLabel = new JLabel("   Couleur: ");
-        toolBar.add(colorLabel);
-        JComboBox colorList = new JComboBox(colorStrings);
-        toolBar.add(colorList);
+        controller = new GlobalController(turtle, this);
 
-        colorList.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JComboBox cb = (JComboBox)e.getSource();
-                int n = cb.getSelectedIndex();
-                courante.setColor(n);
-            }
-        });
+        // Deplacement de la turtle au centre de la feuille
+        turtle.setPosition(500/2, 400/2);
 
+        courante = turtle;
+        feuille.addTurtleView(new TurtleView(turtle));
 
-        // Menus
+        pack();
+        setVisible(true);
+    }
+
+    public void initMenu()
+    {
         JMenuBar menubar=new JMenuBar();
         setJMenuBar(menubar);	// on installe le menu bar
         JMenu menuFile=new JMenu("File"); // on installe le premier menu
@@ -129,75 +116,52 @@ public class MainWindow extends JFrame implements ActionListener
         b22.addActionListener(this);
 
         getContentPane().add(p2,"South");
-
-        feuille = new DrawingSheet(); //500, 400);
-        feuille.setBackground(Color.white);
-        feuille.setSize(new Dimension(600,400));
-        feuille.setPreferredSize(new Dimension(600,400));
-
-        getContentPane().add(feuille,"Center");
-
-        // Creation de la turtle
-        Turtle turtle = new Turtle();
-
-        // Deplacement de la turtle au centre de la feuille
-        turtle.setPosition(500/2, 400/2);
-
-        courante = turtle;
-        feuille.addTurtleView(new TurtleView(turtle));
-
-        pack();
-        setVisible(true);
     }
 
-    public String getInputValue(){
-        String s = inputValue.getText();
-        return(s);
+    public void initButtons()
+    {
+        // Boutons
+        JToolBar toolBar = new JToolBar();
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(toolBar);
+
+        getContentPane().add(buttonPanel,"North");
+
+        addButton(toolBar,"Effacer","Nouveau dessin","/icons/index.png");
+
+        toolBar.add(Box.createRigidArea(HGAP));
+        inputValue=new JTextField("45",5);
+        toolBar.add(inputValue);
+        addButton(toolBar, "Avancer", "Avancer 50", null);
+        addButton(toolBar, "Droite", "Droite 45", null);
+        addButton(toolBar, "Gauche", "Gauche 45", null);
+        addButton(toolBar, "Lever", "Lever Crayon", null);
+        addButton(toolBar, "Baisser", "Baisser Crayon", null);
+
+        String[] colorStrings = {"noir", "bleu", "cyan","gris fonce","rouge",
+                "vert", "gris clair", "magenta", "orange",
+                "gris", "rose", "jaune"};
+
+        // Create the combo box
+        toolBar.add(Box.createRigidArea(HGAP));
+        JLabel colorLabel = new JLabel("   Couleur: ");
+        toolBar.add(colorLabel);
+        JComboBox colorList = new JComboBox(colorStrings);
+        toolBar.add(colorList);
+
+        colorList.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JComboBox cb = (JComboBox)e.getSource();
+                int n = cb.getSelectedIndex();
+                courante.setColor(n);
+            }
+        });
     }
+
 
     /** la gestion des actions des boutons */
     public void actionPerformed(ActionEvent e)
     {
-        String c = e.getActionCommand();
-
-        // actions des boutons du haut
-        if (c.equals("Avancer")) {
-            System.out.println("command avancer");
-            try {
-                int v = Integer.parseInt(inputValue.getText());
-                courante.avancer(v);
-            } catch (NumberFormatException ex){
-                System.err.println("ce n'est pas un nombre : " + inputValue.getText());
-            }
-
-        }
-        else if (c.equals("Droite")) {
-            try {
-                int v = Integer.parseInt(inputValue.getText());
-                courante.droite(v);
-            } catch (NumberFormatException ex){
-                System.err.println("ce n'est pas un nombre : " + inputValue.getText());
-            }
-        }
-        else if (c.equals("Gauche")) {
-            try {
-                int v = Integer.parseInt(inputValue.getText());
-                courante.gauche(v);
-            } catch (NumberFormatException ex){
-                System.err.println("ce n'est pas un nombre : " + inputValue.getText());
-            }
-        }
-        else if (c.equals("Proc1"))
-            proc1();
-        else if (c.equals("Proc2"))
-            proc2();
-        else if (c.equals("Proc3"))
-            proc3();
-        else if (c.equals("Effacer"))
-            effacer();
-        else if (c.equals("Quitter"))
-            quitter();
-
         feuille.repaint();
     }
 
@@ -260,5 +224,10 @@ public class MainWindow extends JFrame implements ActionListener
             else
                 menuItem.setAccelerator(KeyStroke.getKeyStroke(key, 0, false));
         }
+    }
+
+    public String getInputValue(){
+        String s = inputValue.getText();
+        return(s);
     }
 }
