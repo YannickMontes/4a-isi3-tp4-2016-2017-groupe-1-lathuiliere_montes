@@ -12,21 +12,25 @@ import java.util.Iterator;
  */
 public class DrawingSheet extends JPanel
 {
-    private ArrayList<Turtle> turtles; // la liste des turtles enregistrees
+    private ArrayList<TurtleView> turtleViews;
 
-    public DrawingSheet() {
-        turtles = new ArrayList<Turtle>();
+    public DrawingSheet()
+    {
+        turtleViews = new ArrayList<TurtleView>();
     }
 
-    public void addTortue(Turtle o) {
-        turtles.add(o);
+    public void addTurtleView(TurtleView turtleView)
+    {
+        turtleViews.add(turtleView);
     }
 
-    public void reset() {
-        for (Iterator it = turtles.iterator(); it.hasNext();) {
+    public void reset()
+    {
+        /*for (Iterator it = turtles.iterator(); it.hasNext();)
+        {
             Turtle t = (Turtle) it.next();
             t.reset();
-        }
+        }*/
     }
 
     public void paintComponent(Graphics g) {
@@ -43,9 +47,9 @@ public class DrawingSheet extends JPanel
     }
 
     public void showTurtles(Graphics g) {
-        for(Iterator it = turtles.iterator(); it.hasNext();) {
-            Turtle t = (Turtle) it.next();
-            t.drawTurtle(g);
+        for(TurtleView tv : this.turtleViews)
+        {
+            tv.drawTurtle(g);
         }
     }
 }

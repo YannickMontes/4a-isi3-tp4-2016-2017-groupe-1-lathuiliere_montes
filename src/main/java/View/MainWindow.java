@@ -144,7 +144,7 @@ public class MainWindow extends JFrame implements ActionListener
         turtle.setPosition(500/2, 400/2);
 
         courante = turtle;
-        feuille.addTortue(turtle);
+        feuille.addTurtleView(new TurtleView(turtle));
 
         pack();
         setVisible(true);

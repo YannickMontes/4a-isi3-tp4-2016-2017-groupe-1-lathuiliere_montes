@@ -36,7 +36,7 @@ public class TurtleView extends JComponent
     {
         for(Segment segment : this.turtleModel.getListSegments())
         {
-            segment.drawSegment(graph);
+            //segment.drawSegment(graph);
         }
     }
 
