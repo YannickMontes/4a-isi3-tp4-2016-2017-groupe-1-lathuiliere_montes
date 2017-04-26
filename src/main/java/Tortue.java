@@ -21,25 +21,6 @@ import java.util.Iterator;
 
 public class Tortue
 {
-
-	protected class Segment {
-		public Point ptStart, ptEnd;
-		public Color color;
-		
-		public Segment() {
-			ptStart = new Point(0,0);
-			ptEnd = new Point(0,0);
-		}
-		
-		public void drawSegment(Graphics graph) {
-			if (graph==null)
-				return;
-
-			graph.setColor(color);
-			graph.drawLine(ptStart.x, ptStart.y, ptEnd.x, ptEnd.y);
-		}	
-	}
-
 	protected static final int rp=10, rb=5; // Taille de la pointe et de la base de la fleche
 	protected static final double ratioDegRad = 0.0174533; // Rapport radians/degres (pour la conversion)
 	
