@@ -21,9 +21,7 @@ import java.util.Iterator;
 
 public class Turtle
 {
-	protected static final int rp=10;
-	protected static final int rb=5; // Taille de la pointe et de la base de la fleche
-	protected static final double ratioDegRad = 0.0174533; // Rapport radians/degres (pour la conversion)
+
 	
 	protected ArrayList<Segment> listSegments; // Trace de la tortue
 	
@@ -41,6 +39,46 @@ public class Turtle
 		reset();
 	}
 
+	public ArrayList<Segment> getListSegments()
+	{
+		return listSegments;
+	}
+
+	public void setListSegments(ArrayList<Segment> listSegments)
+	{
+		this.listSegments = listSegments;
+	}
+
+    public int getDir()
+    {
+        return dir;
+    }
+
+    public void setDir(int dir)
+    {
+        this.dir = dir;
+    }
+
+    public int getX()
+	{
+		return x;
+	}
+
+	public void setX(int x)
+	{
+		this.x = x;
+	}
+
+	public int getY()
+	{
+		return y;
+	}
+
+	public void setY(int y)
+	{
+		this.y = y;
+	}
+
 	public void reset() {
 		x = 0;
 		y = 0;
@@ -55,7 +93,7 @@ public class Turtle
 		y = newY;
 	}
 	
-	public void drawTurtle (Graphics graph) {
+	/*public void drawTurtle (Graphics graph) {
 		if (graph==null)
 			return;
 		
@@ -93,7 +131,7 @@ public class Turtle
 		arrow.addPoint(p2.x,p2.y);
 		graph.setColor(Color.green);
 		graph.fillPolygon(arrow);
-    }
+    }*/
 
 	protected Color decodeColor(int c) {
 		switch(c) {
@@ -114,8 +152,8 @@ public class Turtle
 	}
 
 	public void avancer(int dist) {
-		int newX = (int) Math.round(x+dist*Math.cos(ratioDegRad*dir));
-		int newY = (int) Math.round(y+dist*Math.sin(ratioDegRad*dir));
+		int newX = (int) Math.round(x+dist*Math.cos(Math.toRadians(dir)));
+		int newY = (int) Math.round(y+dist*Math.sin(Math.toRadians(dir)));
 		
 		if (crayon==true) {
 			Segment seg = new Segment();
