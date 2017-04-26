@@ -187,11 +187,6 @@ public class MainWindow extends JFrame implements ActionListener
                 System.err.println("ce n'est pas un nombre : " + inputValue.getText());
             }
         }
-        else if (c.equals("Lever"))
-            courante.leverCrayon();
-        else if (c.equals("Baisser"))
-            courante.baisserCrayon();
-            // actions des boutons du bas
         else if (c.equals("Proc1"))
             proc1();
         else if (c.equals("Proc2"))

@@ -1,62 +1,48 @@
-package Model;// package logo;
+package Model;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Observable;
 
-
-/*************************************************************************
-
-	Un petit Logo minimal qui devra etre ameliore par la suite
-
-	Source originale : J. Ferber - 1999-2001
-
-			   Cours de DESS TNI - Montpellier II
-
-	@version 2.0
-	@date 25/09/2001
-
-**************************************************************************/
-
-
-public class Turtle
+public class Turtle extends Observable
 {
-
-	
-	protected ArrayList<Segment> listSegments; // Trace de la tortue
-	
 	protected int x;
 	protected int y;
-	protected int dir;	
-	protected boolean crayon; 
+	protected int direction;
 	protected int coul;
-	
-	public void setColor(int n) {coul = n;}
-	public int getColor() {return coul;}
 
-	public Turtle() {
-		listSegments = new ArrayList<Segment>();
+	public Turtle()
+    {
 		reset();
 	}
 
-	public ArrayList<Segment> getListSegments()
-	{
-		return listSegments;
-	}
-
-	public void setListSegments(ArrayList<Segment> listSegments)
-	{
-		this.listSegments = listSegments;
-	}
-
-    public int getDir()
+    public void reset()
     {
-        return dir;
+        x = 0;
+        y = 0;
+        direction = -90;
+        coul = 0;
     }
 
-    public void setDir(int dir)
+    public void setColor(int n)
     {
-        this.dir = dir;
+        coul = n;
+    }
+
+    public int getColor()
+    {
+        return coul;
+    }
+
+    public int getDirection()
+    {
+        return direction;
+    }
+
+    public void setDirection(int direction)
+    {
+        this.direction = direction;
+        notifyObservers();
     }
 
     public int getX()
@@ -79,59 +65,10 @@ public class Turtle
 		this.y = y;
 	}
 
-	public void reset() {
-		x = 0;
-		y = 0;
-		dir = -90;
-		coul = 0;
-		crayon = true;
-		listSegments.clear();
-  	}
-
 	public void setPosition(int newX, int newY) {
 		x = newX;
 		y = newY;
 	}
-	
-	/*public void drawTurtle (Graphics graph) {
-		if (graph==null)
-			return;
-		
-		// Dessine les segments
-		for(Iterator it = listSegments.iterator();it.hasNext();) {
-			Segment seg = (Segment) it.next();
-			seg.drawSegment(graph);
-		}
-
-		//Calcule les 3 coins du triangle a partir de
-		// la position de la tortue p
-		Point p = new Point(x,y);
-		Polygon arrow = new Polygon();
-
-		//Calcule des deux bases
-		//Angle de la droite
-		double theta=ratioDegRad*(-dir);
-		//Demi angle au sommet du triangle
-		double alpha=Math.atan( (float)rb / (float)rp );
-		//Rayon de la fleche
-		double r=Math.sqrt( rp*rp + rb*rb );
-		//Sens de la fleche
-
-		//Pointe
-		Point p2=new Point((int) Math.round(p.x+r*Math.cos(theta)),
-						 (int) Math.round(p.y-r*Math.sin(theta)));
-		arrow.addPoint(p2.x,p2.y);
-		arrow.addPoint((int) Math.round( p2.x-r*Math.cos(theta + alpha) ),
-		  (int) Math.round( p2.y+r*Math.sin(theta + alpha) ));
-
-		//Base2
-		arrow.addPoint((int) Math.round( p2.x-r*Math.cos(theta - alpha) ),
-		  (int) Math.round( p2.y+r*Math.sin(theta - alpha) ));
-
-		arrow.addPoint(p2.x,p2.y);
-		graph.setColor(Color.green);
-		graph.fillPolygon(arrow);
-    }*/
 
 	protected Color decodeColor(int c) {
 		switch(c) {
@@ -151,40 +88,27 @@ public class Turtle
 		}
 	}
 
-	public void avancer(int dist) {
-		int newX = (int) Math.round(x+dist*Math.cos(Math.toRadians(dir)));
-		int newY = (int) Math.round(y+dist*Math.sin(Math.toRadians(dir)));
-		
-		if (crayon==true) {
-			Segment seg = new Segment();
-			
-			seg.ptStart.x = x;
-			seg.ptStart.y = y;
-			seg.ptEnd.x = newX;
-			seg.ptEnd.y = newY;
-			seg.color = decodeColor(coul);
-	
-			listSegments.add(seg);
-		}
+	public void avancer(int dist)
+    {
+		int newX = (int) Math.round(x+dist*Math.cos(Math.toRadians(direction)));
+		int newY = (int) Math.round(y+dist*Math.sin(Math.toRadians(direction)));
 
 		x = newX;
 		y = newY;
+
+        notifyObservers();
 	}
 
-	public void droite(int ang) {
-		dir = (dir + ang) % 360;
+	public void droite(int ang)
+    {
+		direction = (direction + ang) % 360;
+        notifyObservers();
 	}
 
-	public void gauche(int ang) {
-		dir = (dir - ang) % 360;
-	}
-
-	public void baisserCrayon() {
-		crayon = true;
-	}
-
-	public void leverCrayon() {
-		crayon = false;
+	public void gauche(int ang)
+    {
+		direction = (direction - ang) % 360;
+        notifyObservers();
 	}
 
 	public void couleur(int n) {
@@ -202,6 +126,7 @@ public class Turtle
 			avancer(100);
 			droite(90);
 		}
+		notifyObservers();
 	}
 
 	public void poly(int n, int a) {
@@ -209,6 +134,7 @@ public class Turtle
 			avancer(n);
 			droite(360/a);
 		}
+        notifyObservers();
 	}
 
 	public void spiral(int n, int k, int a) {
@@ -218,5 +144,6 @@ public class Turtle
 			droite(360/a);
 			n = n+1;
 		}
+        notifyObservers();
 	}
 }

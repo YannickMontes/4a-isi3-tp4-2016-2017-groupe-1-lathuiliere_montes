@@ -1,16 +1,16 @@
 package View;
 
-import Model.Segment;
 import Model.Turtle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by yannick on 26/04/17.
  */
-public class TurtleView extends JComponent
+public class TurtleView extends JComponent implements Observer
 {
     private static final int sizeArrowHead = 10;
     private static final int sizeBaseArrow = 5;
@@ -20,24 +20,21 @@ public class TurtleView extends JComponent
     public TurtleView(Turtle turtle)
     {
         this.turtleModel = turtle;
-        //this.turtleModel.addObservers(this);
+        this.turtleModel.addObserver(this);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        this.drawTurtle(g);
     }
 
     public void drawTurtle (Graphics graph) {
         if (graph==null)
             return;
 
-        this.drawSegmentTrack(graph);
-
         this.drawArrow(graph);
-    }
-
-    public void drawSegmentTrack(Graphics graph)
-    {
-        for(Segment segment : this.turtleModel.getListSegments())
-        {
-            //segment.drawSegment(graph);
-        }
     }
 
     public void drawArrow(Graphics graph)
@@ -47,7 +44,7 @@ public class TurtleView extends JComponent
 
         //Calcule des deux bases
         //Angle de la droite
-        double theta= Math.toRadians(-1*this.turtleModel.getDir());
+        double theta= Math.toRadians(-1*this.turtleModel.getDirection());
         //Demi angle au sommet du triangle
         double alpha=Math.atan( (float)TurtleView.sizeBaseArrow / (float)TurtleView.sizeArrowHead );
         //Rayon de la fleche
@@ -68,5 +65,10 @@ public class TurtleView extends JComponent
         arrow.addPoint(p2.x,p2.y);
         graph.setColor(Color.green);
         graph.fillPolygon(arrow);
+    }
+
+    public void update(Observable o, Object arg)
+    {
+        repaint();
     }
 }
