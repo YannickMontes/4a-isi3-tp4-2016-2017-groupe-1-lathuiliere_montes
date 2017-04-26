@@ -21,12 +21,14 @@ import java.util.Iterator;
 
 public class Turtle
 {
-	protected static final int rp=10, rb=5; // Taille de la pointe et de la base de la fleche
+	protected static final int rp=10;
+	protected static final int rb=5; // Taille de la pointe et de la base de la fleche
 	protected static final double ratioDegRad = 0.0174533; // Rapport radians/degres (pour la conversion)
 	
 	protected ArrayList<Segment> listSegments; // Trace de la tortue
 	
-	protected int x, y;	
+	protected int x;
+	protected int y;
 	protected int dir;	
 	protected boolean crayon; 
 	protected int coul;

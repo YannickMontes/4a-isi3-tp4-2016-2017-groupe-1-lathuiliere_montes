@@ -7,7 +7,8 @@ import java.awt.*;
  */
 public class Segment
 {
-    public Point ptStart, ptEnd;
+    public Point ptStart;
+    public Point ptEnd;
     public Color color;
 
     public Segment()
