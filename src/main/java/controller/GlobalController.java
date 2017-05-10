@@ -5,19 +5,22 @@ import view.MainWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by yannick on 26/04/17.
  */
 public class GlobalController implements ActionListener
 {
-    private Turtle turtleModel;
+    private Turtle currentTurtle;
     private MainWindow window;
+    private ArrayList<Turtle> turtles;
 
-    public GlobalController(Turtle turtle, MainWindow windows)
+    public GlobalController(Turtle turtle, MainWindow windows, ArrayList<Turtle> turtles)
     {
-        this.turtleModel = turtle;
+        this.currentTurtle = turtle;
         this.window = windows;
+        this.turtles = turtles;
     }
 
     // TODO: optimize switch + declare inputValue taller
@@ -30,7 +33,7 @@ public class GlobalController implements ActionListener
             System.out.println("command avancer");
             try {
                 int inputValue = Integer.parseInt(window.getInputValue());
-                turtleModel.avancer(inputValue);
+                currentTurtle.avancer(inputValue);
             } catch (NumberFormatException ex){
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
             }
@@ -39,7 +42,7 @@ public class GlobalController implements ActionListener
         else if (actionDescription.equals("Droite")) {
             try {
                 int inputValue = Integer.parseInt(window.getInputValue());
-                turtleModel.droite(inputValue);
+                currentTurtle.droite(inputValue);
             } catch (NumberFormatException ex){
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
             }
@@ -47,7 +50,7 @@ public class GlobalController implements ActionListener
         else if (actionDescription.equals("Gauche")) {
             try {
                 int inputValue = Integer.parseInt(window.getInputValue());
-                turtleModel.gauche(inputValue);
+                currentTurtle.gauche(inputValue);
             } catch (NumberFormatException ex){
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
             }
