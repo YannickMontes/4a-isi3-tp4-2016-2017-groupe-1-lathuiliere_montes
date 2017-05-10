@@ -10,6 +10,33 @@ public class Turtle extends Observable
 	protected int direction;
 	protected int coul;
 
+    public int getCoul() {
+        return coul;
+    }
+
+    public void setCoul(int coul) {
+        this.coul = coul;
+    }
+
+    public int getFieldOfViewDistance() {
+        return fieldOfViewDistance;
+    }
+
+    public void setFieldOfViewDistance(int fieldOfViewDistance) {
+        this.fieldOfViewDistance = fieldOfViewDistance;
+    }
+
+    public int getFieldOfViewAngle() {
+        return fieldOfViewAngle;
+    }
+
+    public void setFieldOfViewAngle(int fieldOfViewAngle) {
+        this.fieldOfViewAngle = fieldOfViewAngle;
+    }
+
+    protected int fieldOfViewDistance;
+	protected int fieldOfViewAngle;
+
 	public Turtle()
     {
 		reset();
@@ -21,6 +48,8 @@ public class Turtle extends Observable
         y = 0;
         direction = -90;
         coul = 0;
+        fieldOfViewAngle = 90;
+        fieldOfViewDistance = 50;
     }
 
     public void setColor(int n)
