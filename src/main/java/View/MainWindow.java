@@ -43,6 +43,8 @@ public class MainWindow extends JFrame implements ActionListener
     public MainWindow() {
         super("TORTUGA");
         initWindow();
+        controller = new GlobalController(this.courante, this);
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent arg0) {
@@ -162,6 +164,7 @@ public class MainWindow extends JFrame implements ActionListener
     /** la gestion des actions des boutons */
     public void actionPerformed(ActionEvent e)
     {
+        controller.actionPerformed(e);
         feuille.repaint();
     }
 
