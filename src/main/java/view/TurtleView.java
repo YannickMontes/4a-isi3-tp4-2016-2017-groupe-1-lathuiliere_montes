@@ -63,7 +63,7 @@ public class TurtleView extends JComponent implements Observer
                 (int) Math.round( p2.y+r*Math.sin(theta - alpha) ));
 
         arrow.addPoint(p2.x,p2.y);
-        graph.setColor(Color.green);
+        graph.setColor(this.turtleModel.getColor());
         graph.fillPolygon(arrow);
     }
 

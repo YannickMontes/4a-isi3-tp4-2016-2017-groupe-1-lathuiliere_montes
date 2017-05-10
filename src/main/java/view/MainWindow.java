@@ -19,6 +19,7 @@ public class MainWindow extends JFrame implements ActionListener
     private Turtle courante;
     private JTextField inputValue;
     private GlobalController controller;
+    private int currentCoul;
 
 
     /**
@@ -154,8 +155,7 @@ public class MainWindow extends JFrame implements ActionListener
         colorList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox)e.getSource();
-                int n = cb.getSelectedIndex();
-                courante.setColor(n);
+                currentCoul = cb.getSelectedIndex();
             }
         });
     }
@@ -237,7 +237,7 @@ public class MainWindow extends JFrame implements ActionListener
     public void addNewTurtle()
     {
         Turtle tmp = new Turtle();
-
+        tmp.setColor(this.currentCoul);
         tmp.setPosition(500/2,  400/2);
         feuille.addTurtleView(new TurtleView(tmp));
     }

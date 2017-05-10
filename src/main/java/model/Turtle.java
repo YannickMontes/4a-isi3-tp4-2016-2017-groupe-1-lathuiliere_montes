@@ -57,10 +57,15 @@ public class Turtle extends Observable
         coul = n;
     }
 
-    public int getColor()
+    public int getColorInt()
     {
         return coul;
     }
+
+    public Color getColor()
+	{
+		return this.decodeColor(coul);
+	}
 
     public int getDirection()
     {
