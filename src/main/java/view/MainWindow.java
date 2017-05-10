@@ -43,7 +43,7 @@ public class MainWindow extends JFrame implements ActionListener
     public MainWindow() {
         super("TORTUGA");
         initWindow();
-        controller = new GlobalController(this.courante, this);
+        controller = new GlobalController(this.courante, this, this.feuille.getTurtles());
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -67,8 +67,6 @@ public class MainWindow extends JFrame implements ActionListener
         getContentPane().add(feuille,"Center");
 
         Turtle turtle = new Turtle();
-
-        controller = new GlobalController(turtle, this);
 
         // Deplacement de la turtle au centre de la feuille
         turtle.setPosition(500/2, 400/2);

@@ -1,7 +1,10 @@
 package view;
 
+import model.Turtle;
+
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +20,16 @@ public class DrawingSheet extends JPanel
         this.setBackground(Color.white);
         this.setSize(new Dimension(600,400));
         this.setPreferredSize(new Dimension(600,400));
+    }
+
+    public ArrayList<Turtle> getTurtles()
+    {
+        ArrayList<Turtle> ret = new ArrayList<Turtle>();
+        for(TurtleView tv : this.turtleViews)
+        {
+            ret.add(tv.getTurtle());
+        }
+        return ret;
     }
 
     public void addTurtleView(TurtleView turtleView)

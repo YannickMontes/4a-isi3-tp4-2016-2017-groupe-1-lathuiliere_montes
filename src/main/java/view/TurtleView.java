@@ -23,6 +23,11 @@ public class TurtleView extends JComponent implements Observer
         this.turtleModel.addObserver(this);
     }
 
+    public Turtle getTurtle()
+    {
+        return this.turtleModel;
+    }
+
     @Override
     protected void paintComponent(Graphics g)
     {
