@@ -1,7 +1,7 @@
-package Controller;
+package controller;
 
-import Model.Turtle;
-import View.MainWindow;
+import model.Turtle;
+import view.MainWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

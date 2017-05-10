@@ -1,11 +1,8 @@
-package View;
-
-import Model.Turtle;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by yannick on 26/04/17.

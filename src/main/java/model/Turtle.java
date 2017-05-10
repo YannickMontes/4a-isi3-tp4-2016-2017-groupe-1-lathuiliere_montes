@@ -1,7 +1,6 @@
-package Model;
+package model;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Observable;
 
 public class Turtle extends Observable

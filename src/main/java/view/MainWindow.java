@@ -1,8 +1,7 @@
-package View;
+package view;
 
-import Controller.GlobalController;
-import Model.Turtle;
-import sun.applet.Main;
+import controller.GlobalController;
+import model.Turtle;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
-package View;
+package view;
 
-import Model.Turtle;
+import model.Turtle;
 
 import javax.swing.*;
 import java.awt.*;
