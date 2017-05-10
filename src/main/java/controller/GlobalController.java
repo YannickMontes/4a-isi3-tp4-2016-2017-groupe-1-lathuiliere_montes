@@ -23,6 +23,11 @@ public class GlobalController implements ActionListener
         this.turtles = turtles;
     }
 
+    public void setCurrentTurtle(Turtle turtle)
+    {
+        this.currentTurtle = turtle;
+    }
+
     // TODO: optimize switch + declare inputValue taller
     public void actionPerformed(ActionEvent action)
     {

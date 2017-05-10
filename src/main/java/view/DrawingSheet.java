@@ -13,13 +13,15 @@ import java.util.ArrayList;
 public class DrawingSheet extends JPanel
 {
     private ArrayList<TurtleView> turtleViews;
+    private MainWindow parent;
 
-    public DrawingSheet()
+    public DrawingSheet(MainWindow parent)
     {
         turtleViews = new ArrayList<TurtleView>();
         this.setBackground(Color.white);
         this.setSize(new Dimension(600,400));
         this.setPreferredSize(new Dimension(600,400));
+        this.parent = parent;
     }
 
     public ArrayList<Turtle> getTurtles()
@@ -62,7 +64,12 @@ public class DrawingSheet extends JPanel
     public void showTurtles(Graphics g) {
         for(TurtleView tv : this.turtleViews)
         {
-            tv.drawTurtle(g);
+            tv.paintComponent(g);
         }
+    }
+
+    public void setCourante(Turtle turtle)
+    {
+        this.parent.setCourante(turtle);
     }
 }

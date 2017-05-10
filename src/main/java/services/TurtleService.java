@@ -24,7 +24,7 @@ public class TurtleService {
         for (Turtle t : turtles) {
             if (t==turtle) {break;}
 
-            if()
+            //if()
         }
 
         return new ArrayList<Turtle>();

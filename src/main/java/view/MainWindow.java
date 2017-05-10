@@ -62,7 +62,7 @@ public class MainWindow extends JFrame implements ActionListener
 
         initMenu();
 
-        feuille = new DrawingSheet();
+        feuille = new DrawingSheet(this);
 
         getContentPane().add(feuille,"Center");
 
@@ -72,7 +72,7 @@ public class MainWindow extends JFrame implements ActionListener
         turtle.setPosition(500/2, 400/2);
 
         courante = turtle;
-        feuille.addTurtleView(new TurtleView(turtle));
+        feuille.addTurtleView(new TurtleView(turtle, this.feuille));
 
         pack();
         setVisible(true);
@@ -237,6 +237,12 @@ public class MainWindow extends JFrame implements ActionListener
         Turtle tmp = new Turtle();
         tmp.setColor(this.currentCoul);
         tmp.setPosition(500/2,  400/2);
-        feuille.addTurtleView(new TurtleView(tmp));
+        feuille.addTurtleView(new TurtleView(tmp, this.feuille));
+    }
+
+    public void setCourante(Turtle turtle)
+    {
+        this.courante = turtle;
+        this.controller.setCurrentTurtle(turtle);
     }
 }

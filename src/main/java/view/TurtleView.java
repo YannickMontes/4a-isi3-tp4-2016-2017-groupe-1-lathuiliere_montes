@@ -4,23 +4,33 @@ import model.Turtle;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 
 /**
  * Created by yannick on 26/04/17.
  */
-public class TurtleView extends JComponent implements Observer
+public class TurtleView extends JComponent implements Observer, MouseListener
 {
     private static final int sizeArrowHead = 10;
     private static final int sizeBaseArrow = 5;
 
     private Turtle turtleModel;
+    private DrawingSheet parent;
+    private Polygon polygon;
 
-    public TurtleView(Turtle turtle)
+    public TurtleView(Turtle turtle, DrawingSheet parent)
     {
         this.turtleModel = turtle;
+        this.parent = parent;
         this.turtleModel.addObserver(this);
+        parent.addMouseListener(this);
+
+        this.setPreferredSize(new Dimension(5,5));
+        this.setMinimumSize(new Dimension(5,5));
+
     }
 
     public Turtle getTurtle()
@@ -32,6 +42,7 @@ public class TurtleView extends JComponent implements Observer
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+        this.setBackground(Color.black);
         this.drawTurtle(g);
     }
 
@@ -44,8 +55,9 @@ public class TurtleView extends JComponent implements Observer
 
     public void drawArrow(Graphics graph)
     {
+        Graphics2D graphics = (Graphics2D)graph;
         Point turtlePosition = new Point(turtleModel.getX(), turtleModel.getY());
-        Polygon arrow = new Polygon();
+        this.polygon = new Polygon();
 
         //Calcule des deux bases
         //Angle de la droite
@@ -59,21 +71,50 @@ public class TurtleView extends JComponent implements Observer
         //Pointe
         Point p2=new Point((int) Math.round(turtlePosition.x+r*Math.cos(theta)),
                 (int) Math.round(turtlePosition.y-r*Math.sin(theta)));
-        arrow.addPoint(p2.x,p2.y);
-        arrow.addPoint((int) Math.round( p2.x-r*Math.cos(theta + alpha) ),
+        this.polygon.addPoint(p2.x,p2.y);
+        this.polygon.addPoint((int) Math.round( p2.x-r*Math.cos(theta + alpha) ),
                 (int) Math.round( p2.y+r*Math.sin(theta + alpha) ));
 
         //Base2
-        arrow.addPoint((int) Math.round( p2.x-r*Math.cos(theta - alpha) ),
+        this.polygon.addPoint((int) Math.round( p2.x-r*Math.cos(theta - alpha) ),
                 (int) Math.round( p2.y+r*Math.sin(theta - alpha) ));
 
-        arrow.addPoint(p2.x,p2.y);
-        graph.setColor(this.turtleModel.getColor());
-        graph.fillPolygon(arrow);
+        this.polygon.addPoint(p2.x,p2.y);
+        graphics.setColor(this.turtleModel.getColor());
+        graphics.fillPolygon(this.polygon);
+
     }
 
     public void update(Observable o, Object arg)
     {
         repaint();
+    }
+
+    public void mouseClicked(MouseEvent e)
+    {
+
+    }
+
+    public void mousePressed(MouseEvent e)
+    {
+        if(polygon.contains(e.getX(), e.getY()))
+        {
+            this.parent.setCourante(this.turtleModel);
+        }
+    }
+
+    public void mouseReleased(MouseEvent e)
+    {
+
+    }
+
+    public void mouseEntered(MouseEvent e)
+    {
+
+    }
+
+    public void mouseExited(MouseEvent e)
+    {
+
     }
 }
