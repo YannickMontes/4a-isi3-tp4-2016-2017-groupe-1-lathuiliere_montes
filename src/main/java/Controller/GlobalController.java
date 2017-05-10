@@ -20,50 +20,48 @@ public class GlobalController implements ActionListener
         this.window = windows;
     }
 
-    public void actionPerformed(ActionEvent e)
+    // TODO: optimize switch + declare inputValue taller
+    public void actionPerformed(ActionEvent action)
     {
-        String c = e.getActionCommand();
+        String actionDescription = action.getActionCommand();
 
-        // actions des boutons du haut
-        if (c.equals("Avancer")) {
+        // top bar button's actions
+        if (actionDescription.equals("Avancer")) {
             System.out.println("command avancer");
             try {
-                int v = Integer.parseInt(window.getInputValue());
-                turtleModel.avancer(v);
+                int inputValue = Integer.parseInt(window.getInputValue());
+                turtleModel.avancer(inputValue);
             } catch (NumberFormatException ex){
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
             }
 
         }
-        else if (c.equals("Droite")) {
+        else if (actionDescription.equals("Droite")) {
             try {
-                int v = Integer.parseInt(window.getInputValue());
-                turtleModel.droite(v);
+                int inputValue = Integer.parseInt(window.getInputValue());
+                turtleModel.droite(inputValue);
             } catch (NumberFormatException ex){
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
             }
         }
-        else if (c.equals("Gauche")) {
+        else if (actionDescription.equals("Gauche")) {
             try {
-                int v = Integer.parseInt(window.getInputValue());
-                turtleModel.gauche(v);
+                int inputValue = Integer.parseInt(window.getInputValue());
+                turtleModel.gauche(inputValue);
             } catch (NumberFormatException ex){
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
             }
         }
-        /*else if (c.equals("Proc1"))
+        /*else if (actionDescription.equals("Proc1"))
             proc1();
-        else if (c.equals("Proc2"))
+        else if (actionDescription.equals("Proc2"))
             proc2();
-        else if (c.equals("Proc3"))
+        else if (actionDescription.equals("Proc3"))
             proc3();
-        else if (c.equals("Effacer"))
+        else if (actionDescription.equals("Effacer"))
             effacer();
-        else if (c.equals("Quitter"))
+        else if (actionDescription.equals("Quitter"))
             quitter();*/
     }
-
-
-
 }
 
