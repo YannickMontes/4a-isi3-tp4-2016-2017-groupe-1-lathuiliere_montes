@@ -35,7 +35,7 @@ public class MainWindow extends JFrame implements ActionListener
 
     }
 
-    private void quitter() {
+    public void quitter() {
         System.exit(0);
     }
 
@@ -86,6 +86,7 @@ public class MainWindow extends JFrame implements ActionListener
         JMenu menuFile=new JMenu("File"); // on installe le premier menu
         menubar.add(menuFile);
 
+        addMenuItem(menuFile, "Créer tortue", "AddTurtle", -1);
         addMenuItem(menuFile, "Effacer", "Effacer", KeyEvent.VK_N);
         addMenuItem(menuFile, "Quitter", "Quitter", KeyEvent.VK_Q);
 
@@ -231,5 +232,13 @@ public class MainWindow extends JFrame implements ActionListener
     public String getInputValue(){
         String s = inputValue.getText();
         return(s);
+    }
+
+    public void addNewTurtle()
+    {
+        Turtle tmp = new Turtle();
+
+        tmp.setPosition(500/2,  400/2);
+        feuille.addTurtleView(new TurtleView(tmp));
     }
 }

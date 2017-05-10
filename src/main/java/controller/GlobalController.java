@@ -52,16 +52,18 @@ public class GlobalController implements ActionListener
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
             }
         }
-        /*else if (actionDescription.equals("Proc1"))
-            proc1();
+        else if (actionDescription.equals("Proc1"))
+            this.window.proc1();
         else if (actionDescription.equals("Proc2"))
-            proc2();
+            this.window.proc2();
         else if (actionDescription.equals("Proc3"))
-            proc3();
+            this.window.proc3();
         else if (actionDescription.equals("Effacer"))
-            effacer();
+            this.window.effacer();
         else if (actionDescription.equals("Quitter"))
-            quitter();*/
+            this.window.quitter();
+        else if(actionDescription.equals("AddTurtle"))
+            this.window.addNewTurtle();
     }
 }
 
