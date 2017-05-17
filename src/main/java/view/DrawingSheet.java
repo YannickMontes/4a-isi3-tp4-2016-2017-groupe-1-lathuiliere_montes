@@ -41,11 +41,16 @@ public class DrawingSheet extends JPanel
 
     public void reset()
     {
-        /*for (Iterator it = turtles.iterator(); it.hasNext();)
+        for(TurtleView tv : turtleViews)
         {
-            Turtle t = (Turtle) it.next();
-            t.reset();
-        }*/
+            if(tv.getTurtle() != this.parent.getCourante())
+                turtleViews.remove(tv);
+            else
+            {
+                tv.getTurtle().reset();
+                this.parent.getCourante().setPosition(this.getSize().width/2, this.getSize().height/2);
+            }
+        }
     }
 
     public void paintComponent(Graphics g) {

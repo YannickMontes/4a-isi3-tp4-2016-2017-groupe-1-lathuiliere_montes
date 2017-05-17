@@ -19,6 +19,7 @@ public class MainWindow extends JFrame implements ActionListener
     private Turtle courante;
     private JTextField inputValue;
     private GlobalController controller;
+    private boolean flocking;
     private int currentCoul;
 
 
@@ -156,6 +157,20 @@ public class MainWindow extends JFrame implements ActionListener
                 currentCoul = cb.getSelectedIndex();
             }
         });
+
+        this.flocking = false;
+        final JCheckBox flockingCheckbox = new JCheckBox("Flocking");
+        flockingCheckbox.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                flocking = flockingCheckbox.isSelected();
+                if(flocking)
+                    effacer();
+
+            }
+        });
+        toolBar.add(flockingCheckbox);
     }
 
 
@@ -183,10 +198,6 @@ public class MainWindow extends JFrame implements ActionListener
     public void effacer() {
         feuille.reset();
         feuille.repaint();
-
-        // Replace la tortue au centre
-        Dimension size = feuille.getSize();
-        courante.setPosition(size.width/2, size.height/2);
     }
 
     //utilitaires pour installer des boutons et des menus
@@ -244,5 +255,10 @@ public class MainWindow extends JFrame implements ActionListener
     {
         this.courante = turtle;
         this.controller.setCurrentTurtle(turtle);
+    }
+
+    public Turtle getCourante()
+    {
+        return this.courante;
     }
 }
