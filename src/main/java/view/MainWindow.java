@@ -19,6 +19,7 @@ public class MainWindow extends JFrame implements ActionListener
     private Turtle courante;
     private JTextField inputValue;
     private GlobalController controller;
+    private boolean flocking;
     private int currentCoul;
 
 
@@ -43,7 +44,7 @@ public class MainWindow extends JFrame implements ActionListener
     public MainWindow() {
         super("TORTUGA");
         initWindow();
-        controller = new GlobalController(this.courante, this);
+        controller = new GlobalController(this.courante, this, this.feuille.getTurtles());
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -62,19 +63,17 @@ public class MainWindow extends JFrame implements ActionListener
 
         initMenu();
 
-        feuille = new DrawingSheet();
+        feuille = new DrawingSheet(this);
 
         getContentPane().add(feuille,"Center");
 
         Turtle turtle = new Turtle();
 
-        controller = new GlobalController(turtle, this);
-
         // Deplacement de la turtle au centre de la feuille
         turtle.setPosition(500/2, 400/2);
 
         courante = turtle;
-        feuille.addTurtleView(new TurtleView(turtle));
+        feuille.addTurtleView(new TurtleView(turtle, this.feuille));
 
         pack();
         setVisible(true);
@@ -158,6 +157,20 @@ public class MainWindow extends JFrame implements ActionListener
                 currentCoul = cb.getSelectedIndex();
             }
         });
+
+        this.flocking = false;
+        final JCheckBox flockingCheckbox = new JCheckBox("Flocking");
+        flockingCheckbox.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                flocking = flockingCheckbox.isSelected();
+                if(flocking)
+                    effacer();
+
+            }
+        });
+        toolBar.add(flockingCheckbox);
     }
 
 
@@ -185,10 +198,6 @@ public class MainWindow extends JFrame implements ActionListener
     public void effacer() {
         feuille.reset();
         feuille.repaint();
-
-        // Replace la tortue au centre
-        Dimension size = feuille.getSize();
-        courante.setPosition(size.width/2, size.height/2);
     }
 
     //utilitaires pour installer des boutons et des menus
@@ -239,6 +248,17 @@ public class MainWindow extends JFrame implements ActionListener
         Turtle tmp = new Turtle();
         tmp.setColor(this.currentCoul);
         tmp.setPosition(500/2,  400/2);
-        feuille.addTurtleView(new TurtleView(tmp));
+        feuille.addTurtleView(new TurtleView(tmp, this.feuille));
+    }
+
+    public void setCourante(Turtle turtle)
+    {
+        this.courante = turtle;
+        this.controller.setCurrentTurtle(turtle);
+    }
+
+    public Turtle getCourante()
+    {
+        return this.courante;
     }
 }
