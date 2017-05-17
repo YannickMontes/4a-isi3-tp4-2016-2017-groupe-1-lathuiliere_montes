@@ -24,7 +24,7 @@ public class TurtleService {
         int startingAngle = turtle.getDirection() - (turtle.getFieldOfViewAngle() / 2);
         int endingAngle = turtle.getDirection() + (turtle.getFieldOfViewAngle() / 2);
         int radius = turtle.getFieldOfViewDistance();
-        ArrayList<Turtle> neighborhood = new ArrayList<>();
+        ArrayList<Turtle> neighborhood = new ArrayList();
 
         for (Turtle t : turtles) {
             if (t==turtle) {continue;} //TODO: Filter
