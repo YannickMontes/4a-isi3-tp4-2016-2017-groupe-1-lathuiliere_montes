@@ -1,18 +1,18 @@
 package services;
 
 import model.Turtle;
-
+import java.math.*;
 import java.util.ArrayList;
 
 /**
  * Created by yoannlathuiliere on 10/05/2017.
  */
 public class TurtleService {
-    static TurtleService sharedInstance;
+    private static TurtleService sharedInstance;
 
     private TurtleService() {}
 
-    public TurtleService getInstance() {
+    public static TurtleService getInstance() {
         if (sharedInstance == null) {
             sharedInstance = new TurtleService();
         }
@@ -21,13 +21,31 @@ public class TurtleService {
     }
 
     public ArrayList<Turtle> getNeighborhoodOfTurtle(Turtle turtle, ArrayList<Turtle> turtles) {
-        for (Turtle t : turtles) {
-            if (t==turtle) {break;}
+        int startingAngle = turtle.getDirection() - (turtle.getFieldOfViewAngle() / 2);
+        int endingAngle = turtle.getDirection() + (turtle.getFieldOfViewAngle() / 2);
+        int radius = turtle.getFieldOfViewDistance();
+        ArrayList<Turtle> neighborhood = new ArrayList<>();
 
-            //if()
+        for (Turtle t : turtles) {
+            if (t==turtle) {continue;} //TODO: Filter
+
+            int a = t.getX();
+            int b = t.getY();
+
+            int tX = t.getX() - turtle.getX();
+            int tY = t.getY() - turtle.getY();
+
+            double turtleAngle = Math.toDegrees(Math.atan2(tY, tX));
+            double turtleRadius = Math.sqrt(tX * tX + tY * tY);
+
+            if(tX == 0 && tY == 0) {
+                neighborhood.add(t);
+            } else if (turtleAngle >= startingAngle && turtleAngle <= endingAngle && turtleRadius >= 0 && turtleRadius <= radius) {
+                neighborhood.add(t);
+            }
         }
 
-        return new ArrayList<Turtle>();
+        return neighborhood;
     }
 
     public float getAverageDirection(ArrayList<Turtle> turtles)
