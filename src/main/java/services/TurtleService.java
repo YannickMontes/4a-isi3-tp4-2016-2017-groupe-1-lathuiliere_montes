@@ -29,4 +29,26 @@ public class TurtleService {
 
         return new ArrayList<Turtle>();
     }
+
+    public float getAverageDirection(ArrayList<Turtle> turtles)
+    {
+        float mean = 0.0f;
+        for(Turtle t: turtles)
+        {
+            mean += t.getDirection();
+        }
+        mean = mean/turtles.size();
+        return mean;
+    }
+
+    public float getAverageSpeed(ArrayList<Turtle> turtles)
+    {
+        float mean = 0.0f;
+        for(Turtle t: turtles)
+        {
+            //mean += t.();
+        }
+        mean = mean/turtles.size();
+        return mean;
+    }
 }

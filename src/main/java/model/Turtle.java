@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class Turtle extends Observable
@@ -178,5 +179,12 @@ public class Turtle extends Observable
 			n = n+1;
 		}
         notifyObservers();
+	}
+
+	public void flocking(ArrayList<Turtle> turtles)
+	{
+        //ArrayList<Turtle> neigh = turtles.getNeighborhood();
+
+		notifyObservers();
 	}
 }
