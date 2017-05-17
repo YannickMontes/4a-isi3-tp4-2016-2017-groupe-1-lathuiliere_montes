@@ -21,18 +21,26 @@ public class TurtleService {
     }
 
     public ArrayList<Turtle> getNeighborhoodOfTurtle(Turtle turtle, ArrayList<Turtle> turtles) {
-        int endingAngle = turtle.getFieldOfViewAngle() / 2;
-        int startingAngle = - turtle.getFieldOfViewAngle() / 2;
+        int startingAngle = turtle.getDirection() - (turtle.getFieldOfViewAngle() / 2);
+        int endingAngle = turtle.getDirection() + (turtle.getFieldOfViewAngle() / 2);
         int radius = turtle.getFieldOfViewDistance();
         ArrayList<Turtle> neighborhood = new ArrayList<>();
 
         for (Turtle t : turtles) {
             if (t==turtle) {continue;} //TODO: Filter
 
-            double turtleAngle = Math.atan2((double) t.getX(), (double) t.getY());
-            double turtleRadius = Math.sqrt((double) t.getX() * (double) t.getX() + (double) t.getY() * (double) t.getY());
+            int a = t.getX();
+            int b = t.getY();
 
-            if(turtleAngle > startingAngle && turtleAngle < endingAngle && turtleRadius > 0 && turtleRadius < radius) {
+            int tX = t.getX() - turtle.getX();
+            int tY = t.getY() - turtle.getY();
+
+            double turtleAngle = Math.toDegrees(Math.atan2(tY, tX));
+            double turtleRadius = Math.sqrt(tX * tX + tY * tY);
+
+            if(tX == 0 && tY == 0) {
+                neighborhood.add(t);
+            } else if (turtleAngle >= startingAngle && turtleAngle <= endingAngle && turtleRadius >= 0 && turtleRadius <= radius) {
                 neighborhood.add(t);
             }
         }
