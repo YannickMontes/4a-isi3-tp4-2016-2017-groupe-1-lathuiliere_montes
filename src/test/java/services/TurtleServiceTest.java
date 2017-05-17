@@ -25,7 +25,7 @@ public class TurtleServiceTest {
     @Before
     public void setup()
     {
-        turtles = new ArrayList<>();
+        turtles = new ArrayList();
 
         turtle = mock(Turtle.class);
         when(turtle.getX()).thenReturn(50);
