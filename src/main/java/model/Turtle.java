@@ -1,5 +1,8 @@
 package model;
 
+import services.TurtleService;
+import view.DrawingSheet;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -49,8 +52,8 @@ public class Turtle extends Observable
         y = 0;
         direction = -90;
         coul = 0;
-        fieldOfViewAngle = 90;
-        fieldOfViewDistance = 50;
+        fieldOfViewAngle = 60;
+        fieldOfViewDistance = 10;
     }
 
     public void setColor(int n)
@@ -75,7 +78,18 @@ public class Turtle extends Observable
 
     public void setDirection(int direction)
     {
-        this.direction = direction;
+        if(direction > 180)
+        {
+            this.direction =  (-1 * direction) + 180;
+        }
+        else if(direction < -180)
+        {
+            this.direction = (-1 * direction) - 180;
+        }
+        else
+        {
+            this.direction = direction;
+        }
         notifyObservers();
     }
 
@@ -99,9 +113,29 @@ public class Turtle extends Observable
 		this.y = y;
 	}
 
-	public void setPosition(int newX, int newY) {
-		x = newX;
+	public void setPosition(int newX, int newY)
+    {
+        if(newX > DrawingSheet.dimension.getWidth())
+        {
+            newX = newX - (int)DrawingSheet.dimension.getWidth();
+        }
+        else if(newX < 0)
+        {
+            newX = newX + (int)DrawingSheet.dimension.getWidth();
+        }
+        if(newY > DrawingSheet.dimension.getHeight())
+        {
+            newY = newY - (int)DrawingSheet.dimension.getHeight();
+        }
+        else if(newY < 0)
+        {
+            newY = newY + (int)DrawingSheet.dimension.getHeight();
+        }
+
+        x = newX;
 		y = newY;
+
+		notifyObservers();
 	}
 
 	protected Color decodeColor(int c) {
@@ -127,8 +161,7 @@ public class Turtle extends Observable
 		int newX = (int) Math.round(x+dist*Math.cos(Math.toRadians(direction)));
 		int newY = (int) Math.round(y+dist*Math.sin(Math.toRadians(direction)));
 
-		x = newX;
-		y = newY;
+		this.setPosition(newX, newY);
 
         notifyObservers();
 	}
@@ -183,8 +216,17 @@ public class Turtle extends Observable
 
 	public void flocking(ArrayList<Turtle> turtles)
 	{
-        //ArrayList<Turtle> neigh = turtles.getNeighborhood();
+        ArrayList<Turtle> neigh = TurtleService.getInstance().getNeighborhoodOfTurtle(this, turtles);
+
+        double meanDirection = TurtleService.getInstance().getAverageDirection(turtles);
+
+		this.setDirection((int)meanDirection);
 
 		notifyObservers();
+	}
+
+	public void moove()
+	{
+		this.avancer(10);
 	}
 }
