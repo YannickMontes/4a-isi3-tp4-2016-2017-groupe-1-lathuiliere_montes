@@ -12,15 +12,17 @@ import java.util.ArrayList;
  */
 public class DrawingSheet extends JPanel
 {
+    public static Dimension dimension;
     private ArrayList<TurtleView> turtleViews;
     private MainWindow parent;
 
     public DrawingSheet(MainWindow parent)
     {
+        DrawingSheet.dimension = new Dimension(600, 400);
         turtleViews = new ArrayList<TurtleView>();
         this.setBackground(Color.white);
-        this.setSize(new Dimension(600,400));
-        this.setPreferredSize(new Dimension(600,400));
+        this.setSize(DrawingSheet.dimension);
+        this.setPreferredSize(DrawingSheet.dimension);
         this.parent = parent;
     }
 
@@ -41,16 +43,7 @@ public class DrawingSheet extends JPanel
 
     public void reset()
     {
-        for(TurtleView tv : turtleViews)
-        {
-            if(tv.getTurtle() != this.parent.getCourante())
-                turtleViews.remove(tv);
-            else
-            {
-                tv.getTurtle().reset();
-                this.parent.getCourante().setPosition(this.getSize().width/2, this.getSize().height/2);
-            }
-        }
+        this.turtleViews.clear();
     }
 
     public void paintComponent(Graphics g) {
