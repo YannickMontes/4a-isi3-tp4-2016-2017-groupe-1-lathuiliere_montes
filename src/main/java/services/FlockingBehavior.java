@@ -1,6 +1,7 @@
 package services;
 
 import model.Turtle;
+import view.DrawingSheet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,18 +12,32 @@ import java.util.List;
 public class FlockingBehavior extends Thread
 {
     private ArrayList<Turtle> turtles;
+    private DrawingSheet drawingSheet;
 
-    public FlockingBehavior(ArrayList<Turtle> turtles)
+    public FlockingBehavior(ArrayList<Turtle> turtles, DrawingSheet drawingSheet)
     {
+        this.drawingSheet = drawingSheet;
         this.turtles = turtles;
     }
 
+    @Override
     public void run()
     {
-        System.out.println("Start flocking");
-        for(Turtle t : turtles)
+        while(true)
         {
-            t.flocking(turtles);
+            for(Turtle t : turtles)
+            {
+                t.flocking(turtles);
+                t.moove();
+            }
+            try
+            {
+                Thread.sleep(50);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            drawingSheet.repaint();
         }
     }
 }
