@@ -2,6 +2,7 @@ package view;
 
 import controller.GlobalController;
 import model.Turtle;
+import services.FlockingBehavior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -166,6 +167,11 @@ public class MainWindow extends JFrame implements ActionListener
             {
                 flocking = flockingCheckbox.isSelected();
                 if(flocking)
+                {
+                    effacer();
+                    startFlocking(10);
+                }
+                else
                     effacer();
 
             }
@@ -198,6 +204,33 @@ public class MainWindow extends JFrame implements ActionListener
     public void effacer() {
         feuille.reset();
         feuille.repaint();
+    }
+
+    public void startFlocking(int turtleNumber)
+    {
+        for(int i=0; i<turtleNumber; i++)
+        {
+            this.addRandomTurtle();
+        }
+        FlockingBehavior flocking = new FlockingBehavior(feuille.getTurtles(), this.feuille);
+        flocking.start();
+    }
+
+    private void addRandomTurtle()
+    {
+        int posX = (int) (Math.random() * this.feuille.getSize().getWidth());
+        int posY = (int) (Math.random() * this.feuille.getSize().getHeight());
+
+        int coul = (int) (Math.random() * 12);
+
+        int direction = (int) (Math.random() * 180);
+
+        Turtle toAdd = new Turtle();
+        toAdd.setDirection(direction);
+        toAdd.setPosition(posX, posY);
+        toAdd.setColor(coul);
+
+        this.feuille.addTurtleView(new TurtleView(toAdd, this.feuille));
     }
 
     //utilitaires pour installer des boutons et des menus
