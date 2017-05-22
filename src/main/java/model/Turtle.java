@@ -236,9 +236,14 @@ public class Turtle extends Observable
 
 			double meanSpeed = TurtleService.getInstance().getAverageSpeed(neigh);
 
-			this.setSpeed(meanSpeed);
-
 			this.setDirection((int) meanDirection);
+
+			if(!TurtleService.getInstance().get360Neighborhood(this, turtles, 5, color).isEmpty())
+			{
+				meanDirection *= 0.90;
+			}
+
+			this.setSpeed(meanSpeed);
 		}
 		notifyObservers();
 	}

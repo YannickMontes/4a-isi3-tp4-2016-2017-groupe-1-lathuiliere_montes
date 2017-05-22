@@ -1,6 +1,8 @@
 package services;
 
 import model.Turtle;
+
+import java.lang.reflect.Array;
 import java.math.*;
 import java.util.ArrayList;
 
@@ -38,16 +40,36 @@ public class TurtleService {
             double turtleAngle = Math.toDegrees(Math.atan2(tY, tX));
             double turtleRadius = Math.sqrt(tX * tX + tY * tY);
 
-            if(tX == 0 && tY == 0 && t.getColor() == turtle.getColor()) {
+            if(tX == 0 && tY == 0 && (color && t.getColor() == turtle.getColor())) {
                 neighborhood.add(t);
             } else if (turtleAngle >= startingAngle && turtleAngle <= endingAngle
                     && turtleRadius >= 0 && turtleRadius <= radius
-                    && t.getColor() == turtle.getColor()) {
+                    && (color && t.getColor() == turtle.getColor())) {
                 neighborhood.add(t);
             }
         }
 
         return neighborhood;
+    }
+
+    public ArrayList<Turtle> get360Neighborhood(Turtle turtle, ArrayList<Turtle> turtles, int distance, boolean color)
+    {
+        ArrayList<Turtle> neighborhood = new ArrayList();
+
+        for (Turtle t : turtles) {
+            if (t==turtle) {continue;} //TODO: Filter
+
+            if(TurtleService.getInstance().getEuclidianDistance(turtle.getX(), t.getX(), turtle.getY(), t.getY()) <= distance
+                    && (color && t.getColor() == turtle.getColor()))
+                neighborhood.add(t);
+        }
+
+        return neighborhood;
+    }
+
+    public double getEuclidianDistance(int x1, int x2, int y1, int y2)
+    {
+        return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
     }
 
     public float getAverageDirection(ArrayList<Turtle> turtles)
