@@ -64,7 +64,7 @@ public class TurtleServiceTest {
         when(turtle.getFieldOfViewAngle()).thenReturn(10);
         when(turtle.getDirection()).thenReturn(-90);
 
-        ArrayList<Turtle> neighborhood = TurtleService.getInstance().getNeighborhoodOfTurtle(turtle, turtles);
+        ArrayList<Turtle> neighborhood = TurtleService.getInstance().getNeighborhoodOfTurtle(turtle, turtles, false);
         assertThat(neighborhood).containsExactlyInAnyOrder(garry, angelo);
     }
 
@@ -73,7 +73,7 @@ public class TurtleServiceTest {
         when(turtle.getFieldOfViewAngle()).thenReturn(180);
         when(turtle.getDirection()).thenReturn(-90);
 
-        ArrayList<Turtle> neighborhood = TurtleService.getInstance().getNeighborhoodOfTurtle(turtle, turtles);
+        ArrayList<Turtle> neighborhood = TurtleService.getInstance().getNeighborhoodOfTurtle(turtle, turtles, false);
         assertThat(neighborhood).containsExactlyInAnyOrder(garry, angelo, leo, maria);
     }
 
@@ -82,7 +82,7 @@ public class TurtleServiceTest {
         when(turtle.getFieldOfViewAngle()).thenReturn(180);
         when(turtle.getDirection()).thenReturn(90);
 
-        ArrayList<Turtle> neighborhood = TurtleService.getInstance().getNeighborhoodOfTurtle(turtle, turtles);
+        ArrayList<Turtle> neighborhood = TurtleService.getInstance().getNeighborhoodOfTurtle(turtle, turtles, false);
         assertThat(neighborhood).containsExactlyInAnyOrder(angelo, jose);
     }
 
@@ -91,7 +91,7 @@ public class TurtleServiceTest {
         when(turtle.getFieldOfViewAngle()).thenReturn(90);
         when(turtle.getDirection()).thenReturn(-180);
 
-        ArrayList<Turtle> neighborhood = TurtleService.getInstance().getNeighborhoodOfTurtle(turtle, turtles);
+        ArrayList<Turtle> neighborhood = TurtleService.getInstance().getNeighborhoodOfTurtle(turtle, turtles, false);
         assertThat(neighborhood).containsExactlyInAnyOrder(angelo, maria);
     }
 

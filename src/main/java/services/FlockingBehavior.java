@@ -27,7 +27,7 @@ public class FlockingBehavior extends Thread
         {
             for(Turtle t : turtles)
             {
-                t.flocking(turtles);
+                t.flocking(turtles, true);
                 t.moove();
             }
             try

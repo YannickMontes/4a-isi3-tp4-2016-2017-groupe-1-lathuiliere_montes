@@ -20,7 +20,7 @@ public class TurtleService {
         return sharedInstance;
     }
 
-    public ArrayList<Turtle> getNeighborhoodOfTurtle(Turtle turtle, ArrayList<Turtle> turtles) {
+    public ArrayList<Turtle> getNeighborhoodOfTurtle(Turtle turtle, ArrayList<Turtle> turtles, boolean color) {
         int startingAngle = turtle.getDirection() - (turtle.getFieldOfViewAngle() / 2);
         int endingAngle = turtle.getDirection() + (turtle.getFieldOfViewAngle() / 2);
         int radius = turtle.getFieldOfViewDistance();
@@ -38,9 +38,11 @@ public class TurtleService {
             double turtleAngle = Math.toDegrees(Math.atan2(tY, tX));
             double turtleRadius = Math.sqrt(tX * tX + tY * tY);
 
-            if(tX == 0 && tY == 0) {
+            if(tX == 0 && tY == 0 && t.getColor() == turtle.getColor()) {
                 neighborhood.add(t);
-            } else if (turtleAngle >= startingAngle && turtleAngle <= endingAngle && turtleRadius >= 0 && turtleRadius <= radius) {
+            } else if (turtleAngle >= startingAngle && turtleAngle <= endingAngle
+                    && turtleRadius >= 0 && turtleRadius <= radius
+                    && t.getColor() == turtle.getColor()) {
                 neighborhood.add(t);
             }
         }
