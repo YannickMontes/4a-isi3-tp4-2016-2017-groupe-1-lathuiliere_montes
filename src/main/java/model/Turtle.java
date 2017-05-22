@@ -53,9 +53,9 @@ public class Turtle extends Observable
         y = 0;
         direction = -90;
         coul = 0;
-        speed = 1;
-        fieldOfViewAngle = 90;
-        fieldOfViewDistance = 20;
+        speed = 3;
+        fieldOfViewAngle = 130;
+        fieldOfViewDistance = 50;
     }
 
     public void setColor(int n)
@@ -222,7 +222,7 @@ public class Turtle extends Observable
 
         if(!neigh.isEmpty())
 		{
-			double meanDirection = TurtleService.getInstance().getAverageDirection(turtles);
+			double meanDirection = TurtleService.getInstance().getAverageDirection(neigh);
 
 			this.setDirection((int) meanDirection);
 		}
