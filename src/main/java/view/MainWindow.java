@@ -169,7 +169,7 @@ public class MainWindow extends JFrame implements ActionListener
                 if(flocking)
                 {
                     effacer();
-                    startFlocking(10);
+                    startFlocking(100);
                 }
                 else
                     effacer();

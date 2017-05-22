@@ -18,7 +18,7 @@ public class DrawingSheet extends JPanel
 
     public DrawingSheet(MainWindow parent)
     {
-        DrawingSheet.dimension = new Dimension(600, 400);
+        DrawingSheet.dimension = new Dimension(1000, 800);
         turtleViews = new ArrayList<TurtleView>();
         this.setBackground(Color.white);
         this.setSize(DrawingSheet.dimension);
