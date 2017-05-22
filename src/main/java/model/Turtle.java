@@ -40,7 +40,7 @@ public class Turtle extends Observable
 
     protected int fieldOfViewDistance;
 	protected int fieldOfViewAngle;
-	protected int speed;
+	protected double speed;
 
 	public Turtle()
     {
@@ -95,7 +95,17 @@ public class Turtle extends Observable
         notifyObservers();
     }
 
-    public int getX()
+	public double getSpeed()
+	{
+		return speed;
+	}
+
+	public void setSpeed(double speed)
+	{
+		this.speed = speed;
+	}
+
+	public int getX()
 	{
 		return x;
 	}
@@ -158,7 +168,7 @@ public class Turtle extends Observable
 		}
 	}
 
-	public void avancer(int dist)
+	public void avancer(double dist)
     {
 		int newX = (int) Math.round(x+dist*Math.cos(Math.toRadians(direction)));
 		int newY = (int) Math.round(y+dist*Math.sin(Math.toRadians(direction)));
@@ -223,6 +233,10 @@ public class Turtle extends Observable
         if(!neigh.isEmpty())
 		{
 			double meanDirection = TurtleService.getInstance().getAverageDirection(neigh);
+
+			double meanSpeed = TurtleService.getInstance().getAverageSpeed(neigh);
+
+			this.setSpeed(meanSpeed);
 
 			this.setDirection((int) meanDirection);
 		}

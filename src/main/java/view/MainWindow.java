@@ -225,10 +225,13 @@ public class MainWindow extends JFrame implements ActionListener
 
         int direction = (int) (Math.random() * 180);
 
+        double speed = (Math.random() * 10)+1;
+
         Turtle toAdd = new Turtle();
         toAdd.setDirection(direction);
         toAdd.setPosition(posX, posY);
         toAdd.setColor(coul);
+        toAdd.setSpeed(speed);
 
         this.feuille.addTurtleView(new TurtleView(toAdd, this.feuille));
     }

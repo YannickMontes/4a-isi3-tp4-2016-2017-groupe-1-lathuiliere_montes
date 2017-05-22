@@ -66,7 +66,7 @@ public class TurtleService {
         float mean = 0.0f;
         for(Turtle t: turtles)
         {
-            //mean += t.();
+            mean += t.getSpeed();
         }
         mean = mean/turtles.size();
         return mean;
