@@ -216,21 +216,15 @@ public class Turtle extends Observable
         notifyObservers();
 	}
 
-	public void flocking(ArrayList<Turtle> turtles)
+	public void flocking(ArrayList<Turtle> turtles, boolean color)
 	{
-        ArrayList<Turtle> neigh = TurtleService.getInstance().getNeighborhoodOfTurtle(this, turtles);
+		ArrayList<Turtle> neigh = TurtleService.getInstance().getNeighborhoodOfTurtle(this, turtles, color);
 
         if(!neigh.isEmpty())
 		{
 			double meanDirection = TurtleService.getInstance().getAverageDirection(neigh);
 
 			this.setDirection((int) meanDirection);
-		}
-		else
-		{
-			double changeDirection = Math.random();
-			//if(changeDirection > 0.95f)
-				//this.setDirection((int)(Math.random() * 180));
 		}
 		notifyObservers();
 	}
