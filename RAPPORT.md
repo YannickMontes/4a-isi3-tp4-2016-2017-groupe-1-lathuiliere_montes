@@ -16,6 +16,14 @@ Voici ci-dessous le diagramme de classes généré par notre IDE :
 <img src="images/original_diagram.png" height="800">
 </p>
 
+La dernière étape de notre aalyse a été de d'analyser le code en lui même, a la recherche d'anomalies. Nous avons trouvé plusieurs "erreurs" de code, comme par exemple :
+* Code en plusieurs langues : certaines variables en anglais, d'autres en français...
+* Variables et fonctions mal nommés : noms non explicites, variables nommés sur avec une seule lettre...
+* Mauvaise utilisation des "if" : présence d'une cascade de "if else" dans une des classes alors que l'utilsation d'un switch rendrait le code beaucoup plus lisibile
+* Mauvaise optimisation du code : appels de fonctions appelé plusieurs fois dans le même but alors que stocker le résultat dans une variable optimiserai l'execution
+* Aucun test unitaire dans le projet
+* Divers problèmes de conventions : noms de packages avec des majuscules, indentation...
+
 ## Question 2
 
 Nous avons décidé d'implémenter un pattern MVC de la manière suivante:
@@ -48,7 +56,7 @@ En ce qui concerne le package Services, c'est un package qui permet de stocker d
 
 
 ## Question 3
-*Rien à rédiger*
+Pour cette question, voir le code des classes du projet.
 
 ## Question 4
 *Rien à rédiger*
