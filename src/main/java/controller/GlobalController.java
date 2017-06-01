@@ -32,11 +32,12 @@ public class GlobalController implements ActionListener
     public void actionPerformed(ActionEvent action)
     {
         String actionDescription = action.getActionCommand();
+        int inputValue = Integer.parseInt(window.getInputValue());
 
         // top bar button's actions
         if (actionDescription.equals("Avancer")) {
             try {
-                int inputValue = Integer.parseInt(window.getInputValue());
+
                 currentTurtle.avancer(inputValue);
             } catch (NumberFormatException ex){
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
@@ -45,7 +46,6 @@ public class GlobalController implements ActionListener
         }
         else if (actionDescription.equals("Droite")) {
             try {
-                int inputValue = Integer.parseInt(window.getInputValue());
                 currentTurtle.droite(inputValue);
             } catch (NumberFormatException ex){
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
@@ -53,7 +53,6 @@ public class GlobalController implements ActionListener
         }
         else if (actionDescription.equals("Gauche")) {
             try {
-                int inputValue = Integer.parseInt(window.getInputValue());
                 currentTurtle.gauche(inputValue);
             } catch (NumberFormatException ex){
                 System.err.println("ce n'est pas un nombre : " + window.getInputValue());
