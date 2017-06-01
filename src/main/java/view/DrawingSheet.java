@@ -46,23 +46,23 @@ public class DrawingSheet extends JPanel
         this.turtleViews.clear();
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void paintComponent(Graphics graph) {
+        super.paintComponent(graph);
 
-        Color c = g.getColor();
+        Color color = graph.getColor();
 
         Dimension dim = getSize();
-        g.setColor(Color.white);
-        g.fillRect(0,0,dim.width, dim.height);
-        g.setColor(c);
+        graph.setColor(Color.white);
+        graph.fillRect(0,0,dim.width, dim.height);
+        graph.setColor(color);
 
-        showTurtles(g);
+        showTurtles(graph);
     }
 
-    public void showTurtles(Graphics g) {
+    public void showTurtles(Graphics graph) {
         for(TurtleView tv : this.turtleViews)
         {
-            tv.paintComponent(g);
+            tv.paintComponent(graph);
         }
     }
 
