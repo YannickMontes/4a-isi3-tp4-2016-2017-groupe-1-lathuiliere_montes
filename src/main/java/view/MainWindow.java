@@ -358,11 +358,14 @@ public class MainWindow extends JFrame implements ActionListener
 
     public void addNewTurtle()
     {
-        Turtle tmp = new Turtle();
-        tmp.setColor(this.currentColor);
-        tmp.setShape(this.currentShape);
-        tmp.setPosition(500/2,  400/2);
-        feuille.addTurtleView(new TurtleView(tmp, this.feuille));
+        if(controlled)
+        {
+            Turtle tmp = new Turtle();
+            tmp.setColor(this.currentColor);
+            tmp.setShape(this.currentShape);
+            tmp.setPosition(500/2,  400/2);
+            feuille.addTurtleView(new TurtleView(tmp, this.feuille));
+        }
     }
 
     public void setCourante(Turtle turtle)
