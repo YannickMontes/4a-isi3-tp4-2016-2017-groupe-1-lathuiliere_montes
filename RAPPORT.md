@@ -73,10 +73,34 @@ On peut faire bouger la tortue via les boutons avancer/reculer, ect...
 La tortue controlée est celle sur laquelle l'utilisateur à cliqué. 
 
 ## Question 5
-*Expliquer le code ajouté et représenter le patron de conception*
+
+Nous avons implémentés un traitement au sein d'un thread (RandomBehavior) permettant aux tortues de se déplacer de manière aléatoire. 
+
+Chaque tortue change sa direction et sa vitesse respectivement en moyenne 1 fois sur 5 et 1 fois sur 4. 
+
+Pour lancer ce mode, il suffit de cocher la checkbox "Random" de l'IHM. Ce mode désactive le flocking ainsi que le contrôle manuel des tortues mais également la création de nouvelles tortues.
+
 
 ## Question 6
-*Rien à rédiger*
+
+L'application propose maintenant trois modes différents. 
+Par défaut, lorsqu'on lance l'application, c'est le mode "Manuel" qui est actif. 
+
+Dans ce mode, on peut ajouter autant de tortues qu'on veut à la feuille (en choissisant sa couleur et sa forme), puis cliquer dessus pour la controler. 
+
+Le second mode disponible est le mode "Random", dans lequel les tortues se déplacent de manière autonome (cf. Question 5). 
+Pour accéder à ce mode, il faut cocher la case "Random" de l'IHM.
+
+Le dernier mode est le "Flocking", permettant aux tortues de se comportement comme des oiseaux (logique), de manière à suivre leurs congénères. 
+
+Pour ce faire, nous avons implémenter un champ de vision: chaque tortue peut voir dans un cône d'un certain angle (fixé par défaut à 130° devant elle, 65 a droite et 65 a gauche) ainsi qu'une certaine distance (fixée à 50).
+
+Dans le mode flocking, lorsqu'une tortue apperçoit une tortue dans son champ de vision, elle va décider de suivre cette tortue, en prenant la vitesse et direction de cette dernière. 
+Cela entraine un effet de groupe très rapide. 
+
+Dans le logiciel, ce comportement est effectué par couleur (une tortue rouge suivra uniquement les tortues rouges). 
+
+Pour lancer ce mode, il faut cocher la box "Flocking", ce qui aura pour effet de désactiver les deux modes présentés précédemment. 
 
 ## Bonus
 Nous avons aussi ajouté a l'application les fonctionalités suivantes :
