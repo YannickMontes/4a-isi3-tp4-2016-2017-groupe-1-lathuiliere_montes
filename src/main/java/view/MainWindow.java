@@ -2,6 +2,7 @@ package view;
 
 import controller.GlobalController;
 import model.Turtle;
+import services.Behavior;
 import services.FlockingBehavior;
 import services.RandomBehavior;
 
@@ -25,6 +26,7 @@ public class MainWindow extends JFrame implements ActionListener
     private boolean random;
     private boolean controlled;
     private int currentCoul;
+    private Behavior currentBehavior;
 
 
     /**
@@ -158,6 +160,8 @@ public class MainWindow extends JFrame implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
             {
+                if(currentBehavior != null)
+                    currentBehavior.interrupt();
                 flocking = flockingCheckbox.isSelected();
                 if(flocking)
                 {
@@ -182,6 +186,8 @@ public class MainWindow extends JFrame implements ActionListener
         randomCheckBox.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent e)
              {
+                 if(currentBehavior != null)
+                     currentBehavior.interrupt();
                 random = randomCheckBox.isSelected();
                 if(random)
                 {
@@ -236,8 +242,12 @@ public class MainWindow extends JFrame implements ActionListener
         {
             this.addRandomTurtle();
         }
-        FlockingBehavior flocking = new FlockingBehavior(feuille.getTurtles(), this.feuille);
-        flocking.start();
+        this.currentBehavior = FlockingBehavior.getInstance();
+        this.setAttributesToBehavior();
+        if(this.currentBehavior.isAlive())
+            this.currentBehavior.resume();
+        else
+            this.currentBehavior.start();
     }
 
     public void startRandom(int turtleNumber)
@@ -246,8 +256,18 @@ public class MainWindow extends JFrame implements ActionListener
         {
             this.addRandomTurtle();
         }
-        RandomBehavior randomBehavior = new RandomBehavior(feuille.getTurtles(), this.feuille);
-        randomBehavior.start();
+        this.currentBehavior = RandomBehavior.getInstance();
+        this.setAttributesToBehavior();
+        if(this.currentBehavior.isAlive())
+            this.currentBehavior.resume();
+        else
+            this.currentBehavior.start();
+    }
+
+    private void setAttributesToBehavior()
+    {
+        this.currentBehavior.setDrawingSheet(this.feuille);
+        this.currentBehavior.setTurtles(this.feuille.getTurtles());
     }
 
     private void addRandomTurtle()

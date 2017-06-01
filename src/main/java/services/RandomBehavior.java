@@ -1,5 +1,6 @@
 package services;
 
+import com.sun.javafx.scene.control.behavior.BehaviorBase;
 import model.Turtle;
 import view.DrawingSheet;
 
@@ -9,15 +10,15 @@ import java.util.List;
 /**
  * Created by yannick on 17/05/17.
  */
-public class RandomBehavior extends Thread
+public class RandomBehavior extends Behavior
 {
-    private ArrayList<Turtle> turtles;
-    private DrawingSheet drawingSheet;
-
-    public RandomBehavior(ArrayList<Turtle> turtles, DrawingSheet drawingSheet)
+    public static Behavior getInstance()
     {
-        this.drawingSheet = drawingSheet;
-        this.turtles = turtles;
+        if(instance == null)
+        {
+            instance = new RandomBehavior();
+        }
+        return instance;
     }
 
     @Override
@@ -35,7 +36,6 @@ public class RandomBehavior extends Thread
                 Thread.sleep(50);
             } catch (InterruptedException e)
             {
-                e.printStackTrace();
             }
             drawingSheet.repaint();
         }

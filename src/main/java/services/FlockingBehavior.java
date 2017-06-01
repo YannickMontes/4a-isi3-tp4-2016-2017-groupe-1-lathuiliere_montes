@@ -9,15 +9,15 @@ import java.util.List;
 /**
  * Created by yannick on 17/05/17.
  */
-public class FlockingBehavior extends Thread
+public class FlockingBehavior extends Behavior
 {
-    private ArrayList<Turtle> turtles;
-    private DrawingSheet drawingSheet;
-
-    public FlockingBehavior(ArrayList<Turtle> turtles, DrawingSheet drawingSheet)
+    public static Behavior getInstance()
     {
-        this.drawingSheet = drawingSheet;
-        this.turtles = turtles;
+        if(instance == null)
+        {
+            instance = new FlockingBehavior();
+        }
+        return instance;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class FlockingBehavior extends Thread
                 Thread.sleep(50);
             } catch (InterruptedException e)
             {
-                e.printStackTrace();
+
             }
             drawingSheet.repaint();
         }
