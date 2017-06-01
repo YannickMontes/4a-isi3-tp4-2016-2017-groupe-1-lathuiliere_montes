@@ -39,7 +39,7 @@ Nous sommes partis de ce diagrame pour finalement arriver à ceci:
 
 ![Model](images/model.png)
 ![View](images/view.png)
-![Controller](images/controller.png)
+![Controller](images/Controller.png)
 ![Services](images/services.png)
 
 Ici, les seuls modèles que nous avons sont les tortues. 
