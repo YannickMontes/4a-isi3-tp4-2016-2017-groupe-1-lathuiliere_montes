@@ -12,7 +12,8 @@ Nous nous sommes ensuite concentrés sur la conception du programme en généran
 Nous avonns alors constaté que **le programme ne respectait pas le modèle MVC**. Ainsi, les classes du programmes avaient plusieurs rôles : définir le modèle de l'objet, l'afficher... Ceci ne respectant pas un principe S.O.L.I.D : Single Class Responsability
   
 Voici ci-dessous le diagramme de classes généré par notre IDE :
-<img align="center" src="images/original_diagram.png" height="200">
+
+<img align="center" src="images/original_diagram.png" height="800">
 
 ## Question 2
 *Rien à rédiger*
