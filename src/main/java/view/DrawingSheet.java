@@ -70,4 +70,9 @@ public class DrawingSheet extends JPanel
     {
         this.parent.setCourante(turtle);
     }
+
+    public MainWindow getParent()
+    {
+        return this.parent;
+    }
 }

@@ -248,6 +248,39 @@ public class Turtle extends Observable
 		notifyObservers();
 	}
 
+	public void randomMoove()
+	{
+		double probaChangeDirection = 0.8;
+        double probaChangeSpeed= 0.7;
+		double randomProba = Math.random();
+
+		if(randomProba >= probaChangeDirection)
+		{
+			this.setRandomDirection();
+		}
+
+		randomProba = Math.random();
+
+		if(randomProba > probaChangeSpeed)
+        {
+            this.speed = Math.random()*10 + 5;
+        }
+
+        notifyObservers();
+	}
+
+	private void setRandomDirection()
+	{
+        double randomNumber = Math.random();
+        int sens = 1;
+        if(randomNumber >= 0.5)
+        {
+            sens = -1;
+        }
+
+	    this.direction = (int)(Math.random() * 180 * sens);
+	}
+
 	public void moove()
 	{
 		this.avancer(speed);

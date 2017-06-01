@@ -51,7 +51,18 @@ En ce qui concerne le package Services, c'est un package qui permet de stocker d
 *Rien à rédiger*
 
 ## Question 4
-*Rien à rédiger*
+
+Notre application ressemble désormais à ceci: 
+
+![IHM](images/IHM.png)
+
+Ou il est possible de créer une tortue via le menu "File" -> Créer une tortue
+
+La couleur utilisée lors de la création de la tortue est celle que l'on peut choisir dans le menue déroulant. 
+
+On peut faire bouger la tortue via les boutons avancer/reculer, ect...
+
+La tortue controlée est celle sur laquelle l'utilisateur à cliqué. 
 
 ## Question 5
 *Expliquer le code ajouté et représenter le patron de conception*
