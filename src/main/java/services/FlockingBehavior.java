@@ -11,19 +11,11 @@ import java.util.List;
  */
 public class FlockingBehavior extends Behavior
 {
-    public static Behavior getInstance()
-    {
-        if(instance == null)
-        {
-            instance = new FlockingBehavior();
-        }
-        return instance;
-    }
 
     @Override
     public void run()
     {
-        while(true)
+        while(running)
         {
             for(Turtle t : turtles)
             {
@@ -39,5 +31,6 @@ public class FlockingBehavior extends Behavior
             }
             drawingSheet.repaint();
         }
+        running = true;
     }
 }

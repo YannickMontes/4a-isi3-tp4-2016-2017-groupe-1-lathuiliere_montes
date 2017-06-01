@@ -71,6 +71,8 @@ public class MainWindow extends JFrame implements ActionListener
 
         initMenu();
 
+        this.currentShape = Shape.Triangle;
+
         feuille = new DrawingSheet(this);
 
         getContentPane().add(feuille,"Center");
@@ -157,7 +159,7 @@ public class MainWindow extends JFrame implements ActionListener
         // Create the other combo box
         toolBar.add(Box.createRigidArea(HGAP));
         JLabel shapeLabel = new JLabel("   Forme: ");
-        toolBar.add(colorLabel);
+        toolBar.add(shapeLabel);
         JComboBox shapeList = new JComboBox(shapes);
         toolBar.add(shapeList);
 
@@ -186,7 +188,7 @@ public class MainWindow extends JFrame implements ActionListener
             public void actionPerformed(ActionEvent e)
             {
                 if(currentBehavior != null)
-                    currentBehavior.interrupt();
+                    currentBehavior.terminate();
                 flocking = flockingCheckbox.isSelected();
                 if(flocking)
                 {
@@ -212,7 +214,7 @@ public class MainWindow extends JFrame implements ActionListener
              public void actionPerformed(ActionEvent e)
              {
                  if(currentBehavior != null)
-                     currentBehavior.interrupt();
+                     currentBehavior.terminate();
                 random = randomCheckBox.isSelected();
                 if(random)
                 {
@@ -267,12 +269,9 @@ public class MainWindow extends JFrame implements ActionListener
         {
             this.addRandomTurtle();
         }
-        this.currentBehavior = FlockingBehavior.getInstance();
+        this.currentBehavior = new FlockingBehavior();
         this.setAttributesToBehavior();
-        if(this.currentBehavior.isAlive())
-            this.currentBehavior.resume();
-        else
-            this.currentBehavior.start();
+        this.currentBehavior.start();
     }
 
     public void startRandom(int turtleNumber)
@@ -281,12 +280,9 @@ public class MainWindow extends JFrame implements ActionListener
         {
             this.addRandomTurtle();
         }
-        this.currentBehavior = RandomBehavior.getInstance();
+        this.currentBehavior = new RandomBehavior();
         this.setAttributesToBehavior();
-        if(this.currentBehavior.isAlive())
-            this.currentBehavior.resume();
-        else
-            this.currentBehavior.start();
+        this.currentBehavior.start();
     }
 
     private void setAttributesToBehavior()
@@ -301,6 +297,8 @@ public class MainWindow extends JFrame implements ActionListener
         int posY = (int) (Math.random() * this.feuille.getSize().getHeight());
 
         int coul = (int) (Math.random() * 12);
+
+
 
         int direction = (int) (Math.random() * 180);
 

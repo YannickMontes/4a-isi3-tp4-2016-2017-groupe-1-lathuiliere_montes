@@ -58,6 +58,8 @@ public class TurtleView extends JComponent implements Observer, MouseListener
                 drawCircle(graph);
             case Triangle:
                 drawArrow(graph);
+            default:
+                drawArrow(graph);
         }
     }
 
@@ -97,13 +99,17 @@ public class TurtleView extends JComponent implements Observer, MouseListener
     {
         Graphics2D graphics = (Graphics2D)graph;
 
-        int radius = 20;
+        int radius = 15;
         int x = turtleModel.getX()-(radius/2);
         int y = turtleModel.getY()-(radius/2);
 
         graphics.setColor(this.turtleModel.getColor());
         graphics.fillOval(x,y,radius,radius);
 
+        this.polygon = new Polygon();
+
+        this.polygon.addPoint(x, y);
+        this.polygon.addPoint(x, y);
     }
 
 

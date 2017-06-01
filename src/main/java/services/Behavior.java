@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public abstract class Behavior extends Thread
 {
-    protected static Behavior instance;
+    protected boolean running = true;
     protected ArrayList<Turtle> turtles;
     protected DrawingSheet drawingSheet;
 
@@ -23,5 +23,10 @@ public abstract class Behavior extends Thread
     public void setDrawingSheet(DrawingSheet sheet)
     {
         this.drawingSheet = sheet;
+    }
+
+    public void terminate()
+    {
+        this.running = false;
     }
 }

@@ -12,19 +12,11 @@ import java.util.List;
  */
 public class RandomBehavior extends Behavior
 {
-    public static Behavior getInstance()
-    {
-        if(instance == null)
-        {
-            instance = new RandomBehavior();
-        }
-        return instance;
-    }
 
     @Override
     public void run()
     {
-        while(true)
+        while(running)
         {
             for(Turtle t : turtles)
             {
@@ -39,5 +31,6 @@ public class RandomBehavior extends Behavior
             }
             drawingSheet.repaint();
         }
+        running = true;
     }
 }
