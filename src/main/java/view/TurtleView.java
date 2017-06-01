@@ -1,6 +1,6 @@
 package view;
 
-import model.Turtle;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
+import model.Shape;
 
 /**
  * Created by yannick on 26/04/17.
@@ -50,7 +51,14 @@ public class TurtleView extends JComponent implements Observer, MouseListener
         if (graph==null)
             return;
 
-        this.drawArrow(graph);
+        Shape shape = turtleModel.getShape();
+
+        switch (shape) {
+            case Circle:
+                drawCircle(graph);
+            case Triangle:
+                drawArrow(graph);
+        }
     }
 
     public void drawArrow(Graphics graph)
@@ -84,6 +92,20 @@ public class TurtleView extends JComponent implements Observer, MouseListener
         graphics.fillPolygon(this.polygon);
 
     }
+
+    public void drawCircle(Graphics graph)
+    {
+        Graphics2D graphics = (Graphics2D)graph;
+
+        int radius = 20;
+        int x = turtleModel.getX()-(radius/2);
+        int y = turtleModel.getY()-(radius/2);
+
+        graphics.setColor(this.turtleModel.getColor());
+        graphics.fillOval(x,y,radius,radius);
+
+    }
+
 
     public void update(Observable o, Object arg)
     {

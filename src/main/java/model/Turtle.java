@@ -13,6 +13,15 @@ public class Turtle extends Observable
 	protected int y;
 	protected int direction;
 	protected int coul;
+    protected Shape shape;
+
+    public Shape getShape() {
+        return shape;
+    }
+
+    public void setShape(Shape shape) {
+        this.shape = shape;
+    }
 
     public int getCoul() {
         return coul;
@@ -56,6 +65,7 @@ public class Turtle extends Observable
         speed = 3;
         fieldOfViewAngle = 130;
         fieldOfViewDistance = 50;
+        shape = Shape.Triangle;
     }
 
     public void setColor(int n)

@@ -4,6 +4,7 @@ import controller.GlobalController;
 import model.Turtle;
 import services.Behavior;
 import services.FlockingBehavior;
+import model.Shape;
 import services.RandomBehavior;
 
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class MainWindow extends JFrame implements ActionListener
     private boolean controlled;
     private int currentCoul;
     private Behavior currentBehavior;
+    private Shape currentShape;
 
 
     /**
@@ -136,6 +138,8 @@ public class MainWindow extends JFrame implements ActionListener
                 "vert", "gris clair", "magenta", "orange",
                 "gris", "rose", "jaune"};
 
+        final String[] shapes = {"Triangle", "Circle"};
+
         // Create the combo box
         toolBar.add(Box.createRigidArea(HGAP));
         JLabel colorLabel = new JLabel("   Couleur: ");
@@ -150,6 +154,27 @@ public class MainWindow extends JFrame implements ActionListener
             }
         });
 
+        // Create the other combo box
+        toolBar.add(Box.createRigidArea(HGAP));
+        JLabel shapeLabel = new JLabel("   Forme: ");
+        toolBar.add(colorLabel);
+        JComboBox shapeList = new JComboBox(shapes);
+        toolBar.add(shapeList);
+
+        colorList.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JComboBox cb = (JComboBox)e.getSource();
+                currentCoul = cb.getSelectedIndex();
+            }
+        });
+
+        shapeList.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JComboBox cb = (JComboBox)e.getSource();
+                int index = cb.getSelectedIndex();
+                currentShape = Shape.valueOf(shapes[index]);
+            }
+        });
 
         this.controlled = true;
 
@@ -337,6 +362,7 @@ public class MainWindow extends JFrame implements ActionListener
     {
         Turtle tmp = new Turtle();
         tmp.setColor(this.currentCoul);
+        tmp.setShape(this.currentShape);
         tmp.setPosition(500/2,  400/2);
         feuille.addTurtleView(new TurtleView(tmp, this.feuille));
     }
