@@ -35,7 +35,6 @@ public class GlobalController implements ActionListener
 
         // top bar button's actions
         if (actionDescription.equals("Avancer")) {
-            System.out.println("command avancer");
             try {
                 int inputValue = Integer.parseInt(window.getInputValue());
                 currentTurtle.avancer(inputValue);

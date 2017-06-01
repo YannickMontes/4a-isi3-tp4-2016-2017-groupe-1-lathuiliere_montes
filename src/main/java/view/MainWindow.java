@@ -4,6 +4,7 @@ import controller.GlobalController;
 import model.Turtle;
 import services.FlockingBehavior;
 import model.Shape;
+import services.RandomBehavior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +23,8 @@ public class MainWindow extends JFrame implements ActionListener
     private JTextField inputValue;
     private GlobalController controller;
     private boolean flocking;
+    private boolean random;
+    private boolean controlled;
     private int currentCoul;
     private Shape currentShape;
 
@@ -107,20 +110,6 @@ public class MainWindow extends JFrame implements ActionListener
         addMenuItem(menuHelp, "A propos", "About", -1);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        // les boutons du bas
-        JPanel p2 = new JPanel(new GridLayout());
-        JButton b20 = new JButton("Proc1");
-        p2.add(b20);
-        b20.addActionListener(this);
-        JButton b21 = new JButton("Proc2");
-        p2.add(b21);
-        b21.addActionListener(this);
-        JButton b22 = new JButton("Proc3");
-        p2.add(b22);
-        b22.addActionListener(this);
-
-        getContentPane().add(p2,"South");
     }
 
     public void initButtons()
@@ -185,7 +174,10 @@ public class MainWindow extends JFrame implements ActionListener
             }
         });
 
+        this.controlled = true;
+
         this.flocking = false;
+        final JCheckBox randomCheckBox = new JCheckBox("Random");
         final JCheckBox flockingCheckbox = new JCheckBox("Flocking");
         flockingCheckbox.addActionListener(new ActionListener()
         {
@@ -194,15 +186,46 @@ public class MainWindow extends JFrame implements ActionListener
                 flocking = flockingCheckbox.isSelected();
                 if(flocking)
                 {
+                    randomCheckBox.setSelected(false);
+                    random = false;
+                    controlled = false;
                     effacer();
                     startFlocking(100);
                 }
                 else
+                {
+                    flocking = false;
+                    controlled = true;
                     effacer();
-
+                }
             }
         });
         toolBar.add(flockingCheckbox);
+
+        this.random = false;
+
+        randomCheckBox.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent e)
+             {
+                random = randomCheckBox.isSelected();
+                if(random)
+                {
+                    flockingCheckbox.setSelected(false);
+                    effacer();
+                    flocking = false;
+                    controlled = false;
+                    startRandom(100);
+                }
+                else
+                {
+                    effacer();
+                    flocking = false;
+                    controlled = true;
+                }
+             }
+         });
+
+        toolBar.add(randomCheckBox);
     }
 
 
@@ -240,6 +263,16 @@ public class MainWindow extends JFrame implements ActionListener
         }
         FlockingBehavior flocking = new FlockingBehavior(feuille.getTurtles(), this.feuille);
         flocking.start();
+    }
+
+    public void startRandom(int turtleNumber)
+    {
+        for(int i=0; i<turtleNumber; i++)
+        {
+            this.addRandomTurtle();
+        }
+        RandomBehavior randomBehavior = new RandomBehavior(feuille.getTurtles(), this.feuille);
+        randomBehavior.start();
     }
 
     private void addRandomTurtle()
@@ -323,5 +356,10 @@ public class MainWindow extends JFrame implements ActionListener
     public Turtle getCourante()
     {
         return this.courante;
+    }
+
+    public boolean canControl()
+    {
+        return this.controlled;
     }
 }

@@ -119,7 +119,7 @@ public class TurtleView extends JComponent implements Observer, MouseListener
 
     public void mousePressed(MouseEvent e)
     {
-        if(polygon.contains(e.getX(), e.getY()))
+        if(polygon.contains(e.getX(), e.getY()) && this.parent.getParent().canControl())
         {
             this.parent.setCourante(this.turtleModel);
         }
