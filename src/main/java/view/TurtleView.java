@@ -40,11 +40,11 @@ public class TurtleView extends JComponent implements Observer, MouseListener
     }
 
     @Override
-    protected void paintComponent(Graphics g)
+    protected void paintComponent(Graphics graph)
     {
-        super.paintComponent(g);
+        super.paintComponent(graph);
         this.setBackground(Color.black);
-        this.drawTurtle(g);
+        this.drawTurtle(graph);
     }
 
     public void drawTurtle (Graphics graph) {
