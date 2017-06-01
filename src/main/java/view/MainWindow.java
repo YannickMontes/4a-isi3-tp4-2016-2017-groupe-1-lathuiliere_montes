@@ -20,13 +20,13 @@ public class MainWindow extends JFrame implements ActionListener
     public static final Dimension HGAP = new Dimension(5,1);
 
     private DrawingSheet feuille;
-    private Turtle courante;
+    private Turtle currentTurtle;
     private JTextField inputValue;
     private GlobalController controller;
     private boolean flocking;
     private boolean random;
     private boolean controlled;
-    private int currentCoul;
+    private int currentColor;
     private Behavior currentBehavior;
     private Shape currentShape;
 
@@ -52,7 +52,7 @@ public class MainWindow extends JFrame implements ActionListener
     public MainWindow() {
         super("TORTUGA");
         initWindow();
-        controller = new GlobalController(this.courante, this, this.feuille.getTurtles());
+        controller = new GlobalController(this.currentTurtle, this, this.feuille.getTurtles());
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -80,7 +80,7 @@ public class MainWindow extends JFrame implements ActionListener
         // Deplacement de la turtle au centre de la feuille
         turtle.setPosition(500/2, 400/2);
 
-        courante = turtle;
+        currentTurtle = turtle;
         feuille.addTurtleView(new TurtleView(turtle, this.feuille));
 
         pack();
@@ -150,7 +150,7 @@ public class MainWindow extends JFrame implements ActionListener
         colorList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox)e.getSource();
-                currentCoul = cb.getSelectedIndex();
+                currentColor = cb.getSelectedIndex();
             }
         });
 
@@ -164,7 +164,7 @@ public class MainWindow extends JFrame implements ActionListener
         colorList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox)e.getSource();
-                currentCoul = cb.getSelectedIndex();
+                currentColor = cb.getSelectedIndex();
             }
         });
 
@@ -244,15 +244,15 @@ public class MainWindow extends JFrame implements ActionListener
 
     /** les procedures Logo qui combine plusieurs commandes..*/
     public void proc1() {
-        courante.carre();
+        currentTurtle.carre();
     }
 
     public void proc2() {
-        courante.poly(60,8);
+        currentTurtle.poly(60,8);
     }
 
     public void proc3() {
-        courante.spiral(50,40,6);
+        currentTurtle.spiral(50,40,6);
     }
 
     // efface tout et reinitialise la feuille
@@ -361,7 +361,7 @@ public class MainWindow extends JFrame implements ActionListener
     public void addNewTurtle()
     {
         Turtle tmp = new Turtle();
-        tmp.setColor(this.currentCoul);
+        tmp.setColor(this.currentColor);
         tmp.setShape(this.currentShape);
         tmp.setPosition(500/2,  400/2);
         feuille.addTurtleView(new TurtleView(tmp, this.feuille));
@@ -369,13 +369,13 @@ public class MainWindow extends JFrame implements ActionListener
 
     public void setCourante(Turtle turtle)
     {
-        this.courante = turtle;
+        this.currentTurtle = turtle;
         this.controller.setCurrentTurtle(turtle);
     }
 
     public Turtle getCourante()
     {
-        return this.courante;
+        return this.currentTurtle;
     }
 
     public boolean canControl()
