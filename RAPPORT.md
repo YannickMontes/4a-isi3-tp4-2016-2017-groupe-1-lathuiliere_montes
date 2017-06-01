@@ -78,14 +78,7 @@ La tortue controlée est celle sur laquelle l'utilisateur à cliqué.
 ## Question 6
 *Rien à rédiger*
 
-## Question 7
-*Rien à rédiger*
-
-## Question 8
-*Expliquer l'intérêt du mock*
-
-## Question 9
-*Montrer les résultats de vos rapports d'analyse*
-
-## Question 10
-*Rien à rédiger*
+## Bonus
+Nous avons aussi ajouté a l'application les fonctionalités suivantes :
+* Tests unitaire
+* Forme des tortues (triangle et rond)
